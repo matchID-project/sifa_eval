@@ -1,0 +1,140 @@
+datasets:
+  sifa_matchid_eval:
+    connector: elasticsearch
+    table: sifa_matchid_eval
+    body:
+      mappings:
+        sifa_matchid_eval:       
+          properties:
+            matchid_id:
+              type: keyword 
+    validation:
+      elasticsearch:
+        size: 2200
+      actions:
+        display: true
+        action:
+          label: Results
+          indecision_display: true
+        done:
+          label: Status
+      columns:
+        - field: ine_rnie
+          label: ine_rnie
+          display: false
+          searchable: true
+        - field:
+            - nom
+            - hit_NomFamille
+          label: Nom
+          display: true
+          searchable: true
+          callBack: formatDiff
+        - field:
+            - prenom1
+            - hit_Prenoms
+          label: Prénoms
+          display: true
+          searchable: true
+          callBack: formatDiff
+        - field:
+            - sexe
+            - hit_Sexe
+          label: Sexe
+          display: true
+          searchable: true
+          callBack: formatSex
+          appliedClass:
+            head: head-centered
+            body: has-text-centered
+        - field:
+            - date_nais
+            - hit_datenaissance_sngi
+          label: Date
+          display: true
+          searchable: true
+          callBack: coloredDiff
+          appliedClass:
+            head: head-centered
+            body: has-text-centered
+        - field:
+            - matchid_location_city
+            - hit_commune_naissance_sngi
+          label: Ville
+          display: true
+          searchable: true
+          callBack: coloredDiff
+        - field:
+            - matchid_location_depcode
+            - hit_dep_naissance_sngid
+          label: Dep
+          display: true
+          searchable: true
+          callBack: coloredDiff
+        - field:
+            - matchid_location_country
+            - hit_matchid_location_country
+          label: Pays
+          display: true
+          searchable: true
+          callBack: coloredDiff            
+        - field: matchid_hit_distance
+          label: Distance
+          display: true
+          searchable: false
+          callBack: formatDistance
+          appliedClass:
+            head: head-centered
+            body: has-text-centered
+        - field: hit_matchid_H_Salarie_SQN
+          label: H_Salarie_SQN
+          display: true
+          searchable: true
+          callBack: formatNumber
+        - field: confiance
+          label: Score
+          display: true
+          searchable: false
+          type: score
+          callBack: formatNumber
+          appliedClass:
+            head: head-centered
+            body: has-text-centered min-column-width-100
+        - field: matchid_hit_score
+          label: Pre_Score
+          display: true
+          searchable: false
+          type: score
+          callBack: formatNumber
+          appliedClass:
+            head: head-centered
+            body: has-text-centered min-column-width-100
+      view:
+        display: true
+        column_name: view
+        fields:
+          operation: excluded
+          names:
+            - none
+      scores:
+        column: confiance
+        range:
+          - 0
+          - 100
+        colors:
+          success: 80
+          info: 60
+          warning: 30
+          danger: 0
+        statisticsInterval: 5
+        preComputed:
+          decision: 50
+          indecision:
+            - 40
+            - 65
+        aggs:
+          "Distincts":
+            cardinality:
+              field: 
+                matchid_id
+

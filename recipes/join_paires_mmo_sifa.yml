@@ -1,0 +1,42 @@
+recipes:
+  join_paires_mmo_sifa:
+    input: paires_annot_loic
+    output: paires_annot_complet
+    steps:
+      - join:
+          dataset: mmo
+          type: in_memory
+          strict: 
+            sqn: H_Salarie_SQN
+          select:
+            matchid_sqn: H_Salarie_SQN
+            matchid_Nationalite: Nationalite
+            matchid_DateNaissance: DateNaissance
+            matchid_Sexe: Sexe
+            matchid_NomFamille: NomFamille
+            matchid_Nature: Nature
+            matchid_commune_naissance_sngi: commune_naissance_sngi
+            matchid_DispPolitiquePublique: DispPolitiquePublique
+            matchid_EffectifFinPeriode: EffectifFinPeriode
+            matchid_datenaissance_sngi: datenaissance_sngi
+            matchid_dep_naissance_sngi: dep_naissance_sngi
+            matchid_Prenoms: Prenoms
+            matchid_CodeAPET: CodeAPET
+      - join:
+          dataset: sifa
+          type: in_memory
+          strict: 
+            ine: ine_rnie
+          select:
+            sifa_matchid_ine_bea: ine_bea
+            sifa_matchid_nom: nom
+            sifa_matchid_prenom1: prenom1
+            sifa_matchid_sexe: sexe
+            sifa_matchid_prenom2: prenom2
+            sifa_matchid_prenom3: prenom3
+            sifa_matchid_cod_post: cod_post
+            sifa_matchid_com_resid: com_resid
+            sifa_matchid_og: og
+            sifa_matchid_date_nais: date_nais
+            sifa_matchid_lieu_nais: lieu_nais
+            sifa_matchid_natio: natio

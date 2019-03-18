@@ -1,0 +1,4 @@
+groups:
+  sifa_eval:
+    projects:
+      sifa_eval: {admin: admin}

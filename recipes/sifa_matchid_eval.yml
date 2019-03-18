@@ -1,0 +1,23 @@
+recipes:
+  sifa_matchid_eval:
+    test_chunk_size: 100
+    input: 
+      dataset: paires_annot_complet_sql
+      chunked: False
+      select: >
+        select annot.*, annot.true_match as validation_decision, coalesce(sifa.confiance,0)::int as confiance,
+              sifa.matchid_hit_score_location, sifa.matchid_hit_score_name, sifa.matchid_hit_score_date, sifa.matchid_hit_score_sex
+        from (select * from sifa_matched_sql) sifa RIGHT OUTER JOIN (select * from paires_annot_complet_sql) annot
+        on (
+            sifa.ine_rnie = annot.ine_rnie
+            and sifa."hit_H_Salarie_SQN" = annot."hit_H_Salarie_SQN" )
+      chunk: 10000
+    output: sifa_matchid_eval
+    steps:
+      - exec:
+          - df.fillna(value="", inplace=True)
+      - exec:    
+          #- df = df[df.matchid_hit_score > 30]
+          - df['validation_decision'] = df['validation_decision']=='1'
+          - df['validation_done'] = 0
+          

@@ -1,0 +1,22 @@
+recipes:
+  scenario_complet:
+    before:
+      # dataprep:
+      #- dataprep_sifa
+      - dataprep_mmo
+      # appariement:
+      - mmo_matching_sql_exact
+      - mmo_matching_sql_lev
+      - mmo_matching_sql_date
+      - mmo_matching_sql_name
+      - mmo_matching_sql_name_date
+      - mmo_matching_sql_union
+      # scoring:
+      - mmo_matching_sql
+      # eval:
+      - load_paires_psql
+      - join_paires_mmo_sifa_sql
+      - sifa_loic_eval      
+      - sifa_matchid_eval
+      - sifa_matchid_annot
+      

@@ -1,0 +1,5 @@
+recipes:
+  load_paires_psql:
+    input: paires_annot_loic
+    output: paires_annot_loic_psql
+    steps:

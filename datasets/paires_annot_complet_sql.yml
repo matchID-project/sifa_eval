@@ -1,0 +1,5 @@
+datasets:
+  paires_annot_complet_sql:
+    connector: postgres
+    table: paires_annot_complet_sql
+    

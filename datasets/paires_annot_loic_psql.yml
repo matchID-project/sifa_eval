@@ -1,0 +1,4 @@
+datasets:
+  paires_annot_loic_psql:
+    connector: postgres
+    table: paires_annot_loic

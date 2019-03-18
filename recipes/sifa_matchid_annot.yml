@@ -1,0 +1,6 @@
+recipes:
+  sifa_matchid_annot:
+    input: sifa_matched_sql
+    output: sifa_matchid_annot
+    threads: 1
+    steps:

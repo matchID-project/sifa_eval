@@ -1,0 +1,20 @@
+recipes:
+  sifa_loic_eval:
+    test_chunk_size: 1800
+    input: 
+      dataset: paires_annot_complet_sql
+      chunked: False
+      chunk: 2000
+      select: >
+        select annot.*, annot.true_match as validation_decision
+        from paires_annot_complet_sql annot
+      chunk: 10000
+    output: sifa_loic_eval
+    steps:
+      - exec:
+          - df.fillna(value="", inplace=True)
+      - exec:
+          - df['confiance'] = (df['score_match'].astype(float) * 50 + df['score_confiance'].astype(float) * (50 / (df['score_confiance'].astype(float).max() - df['score_confiance'].astype(float).min()))).astype(int)
+          #- df = df[df.matchid_hit_score > 30]
+          - df['validation_decision'] = df['validation_decision']=='1'
+          - df['validation_done'] = 0

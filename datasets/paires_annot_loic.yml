@@ -1,0 +1,7 @@
+datasets:
+  paires_annot_loic:
+    connector: upload
+    table: paires_annotees.csv
+    type: csv
+    sep: ";"
+    encoding: "utf8"

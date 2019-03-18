@@ -1,0 +1,7 @@
+datasets:
+  paires_annot_complet_elk:
+    connector: upload
+    table: paires_annot_complet_elk
+    type: csv
+    sep: "\\s+|,|;"
+    encoding: "utf8"

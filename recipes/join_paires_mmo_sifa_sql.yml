@@ -1,0 +1,48 @@
+recipes:
+  join_paires_mmo_sifa_sql:
+    test_chunk_size: 100
+    input:
+      dataset: paires_annot_loic_psql
+      chunk: 1000
+      select: >
+        select 
+          sifa.*,
+          mmo."CodeAPET" as "hit_CodeAPET",
+          mmo."DateNaissance" as "hit_DateNaissance",
+          mmo."DispPolitiquePublique" as "hit_DispPolitiquePublique",
+          mmo."EffectifFinPeriode" as "hit_EffectifFinPeriode",
+          mmo."H_Salarie_SQN" as "hit_H_Salarie_SQN",
+          mmo."Nationalite" as "hit_Nationalite",
+          mmo."Nature" as "hit_Nature",
+          mmo."NomFamille" as "hit_NomFamille",
+          mmo."Prenoms" as "hit_Prenoms",
+          mmo."Sexe" as "hit_Sexe",
+          mmo."commune_naissance_sngi" as "hit_commune_naissance_sngi",
+          mmo."datenaissance_sngi" as "hit_datenaissance_sngi",
+          mmo."dep_naissance_sngi" as "hit_dep_naissance_sngi",
+          mmo."matchid_id" as "hit_matchid_id",
+          mmo."matchid_location_city" as "hit_matchid_location_city",
+          mmo."matchid_location_city_alter" as "hit_matchid_location_city_alter",
+          mmo."matchid_location_city_geopoint_2d" as "hit_matchid_location_city_geopoint_2d",
+          mmo."matchid_location_city_population" as "hit_matchid_location_city_population",
+          mmo."matchid_location_city_src" as "hit_matchid_location_city_src",
+          mmo."matchid_location_city_surface" as "hit_matchid_location_city_surface",
+          mmo."matchid_location_citycode" as "hit_matchid_location_citycode",
+          mmo."matchid_location_citycode_history" as "hit_matchid_location_citycode_history",
+          mmo."matchid_location_country" as "hit_matchid_location_country",
+          mmo."matchid_location_countrycode" as "hit_matchid_location_countrycode",
+          mmo."matchid_location_depcode" as "hit_matchid_location_depcode",
+          mmo."matchid_name_first_match" as "hit_matchid_name_first_match",
+          mmo."matchid_name_last_match" as "hit_matchid_name_last_match",
+          mmo."matchid_name_match" as "hit_matchid_name_match",
+          loic.*
+        from (select * from sifa_prep )  sifa, (select * from mmo_pg) mmo, (select * from paires_annot_loic) loic
+        where 
+          (
+            -- sifa.ine_rnie || sifa.sexe = loic.ine
+            sifa.ine_rnie = loic.ine
+            and mmo."H_Salarie_SQN"=loic.sqn
+          )
+        
+    output: paires_annot_complet_sql
+    steps:
