@@ -19,8 +19,8 @@ datasets:
         done:
           label: Status
       columns:
-        - field: ine_rnie
-          label: ine_rnie
+        - field: matchid_id
+          label: matchid_id
           display: false
           searchable: true
         - field:
@@ -66,7 +66,7 @@ datasets:
           callBack: coloredDiff
         - field:
             - matchid_location_depcode
-            - hit_dep_naissance_sngid
+            - hit_dep_naissance_sngi
           label: Dep
           display: true
           searchable: true
@@ -128,10 +128,10 @@ datasets:
           danger: 0
         statisticsInterval: 5
         preComputed:
-          decision: 50
+          decision: 40
           indecision:
-            - 40
-            - 65
+            - 30
+            - 55
         aggs:
           "Distincts":
             cardinality:

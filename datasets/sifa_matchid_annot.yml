@@ -1,16 +1,16 @@
 datasets:
-  sifa_matchid_annot:
+  sifa_matchid_eval:
     connector: elasticsearch
-    table: sifa_matchid_annot
+    table: sifa_matchid_eval
     body:
       mappings:
-        sifa_matchid_annot:       
+        sifa_matchid_eval:       
           properties:
             matchid_id:
               type: keyword 
     validation:
       elasticsearch:
-        size: 1000
+        size: 2200
       actions:
         display: true
         action:
@@ -128,7 +128,7 @@ datasets:
           danger: 0
         statisticsInterval: 5
         preComputed:
-          decision: 50
+          decision: 35
           indecision:
             - 40
             - 65

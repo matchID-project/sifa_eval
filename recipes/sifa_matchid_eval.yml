@@ -6,7 +6,24 @@ recipes:
       chunked: False
       select: >
         select annot.*, annot.true_match as validation_decision, coalesce(sifa.confiance,0)::int as confiance,
-              sifa.matchid_hit_score_location, sifa.matchid_hit_score_name, sifa.matchid_hit_score_date, sifa.matchid_hit_score_sex
+              sifa.matchid_hit_score_location,
+              sifa.matchid_hit_score_location_city,
+              sifa.matchid_hit_score_location_city_lv,
+              sifa.matchid_hit_score_location_citycode,
+              sifa.matchid_hit_score_location_depcode,
+              sifa.matchid_hit_score_location_country_lv,
+              sifa.matchid_hit_score_location_distance,
+              sifa.matchid_hit_score_location_history,
+              
+              sifa.matchid_hit_score_name, 
+              sifa.matchid_hit_score_name_lv, 
+              sifa.matchid_hit_score_name_lv_inv, 
+              sifa.matchid_hit_score_name_tokens, 
+              sifa.matchid_hit_score_name_exact,
+              
+              sifa.matchid_hit_score_date, 
+              sifa.matchid_hit_score_sex,
+              sifa.matchid_hit_distance
         from (select * from sifa_matched_sql) sifa RIGHT OUTER JOIN (select * from paires_annot_complet_sql) annot
         on (
             sifa.ine_rnie = annot.ine_rnie
